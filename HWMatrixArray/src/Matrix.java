@@ -6,8 +6,8 @@ import java.util.List;
 public class Matrix implements MyInterfaces {
 
     public static void main(String[] args) {
-//        int[][] matrixArray = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
-        int[][] matrixArray = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 16}};
+        int[][] matrixArray = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+//        int[][] matrixArray = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 16}};
 
         Matrix matrix = new Matrix();
         matrix.printRootArray(matrixArray);
@@ -44,10 +44,8 @@ public class Matrix implements MyInterfaces {
         int[] array = new int[matrixArray.length];
 
         for (int i = 0; i < matrixArray.length; i++) {
-            int[] elements = matrixArray[i];
-
             array[i] = matrixArray[i][i];
-            System.out.print(elements[i] + " ");
+            System.out.print(matrixArray[i][i] + " ");
         }
 
         return array;
