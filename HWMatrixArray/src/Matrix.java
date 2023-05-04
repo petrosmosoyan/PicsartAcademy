@@ -6,8 +6,8 @@ import java.util.List;
 public class Matrix implements MyInterfaces {
 
     public static void main(String[] args) {
-        int[][] matrixArray = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
-//        int[][] matrixArray = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12},{13, 14, 15, 16}};
+//        int[][] matrixArray = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+        int[][] matrixArray = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 16}};
 
         Matrix matrix = new Matrix();
         matrix.printRootArray(matrixArray);
@@ -19,6 +19,8 @@ public class Matrix implements MyInterfaces {
         int[] secondaryDiagonalArray = matrix.getSecondaryDiagonal(matrixArray);
         List<Integer> secondaryDiagonalAndBottom = matrix.getSecondaryDiagonalAndBottom(matrixArray);
         List<Integer> secondaryDiagonalAndTop = matrix.getSecondaryDiagonalAndTop(matrixArray);
+
+        List<Integer> snake = matrix.getSnake(matrixArray);
     }
 
     @Override
@@ -169,6 +171,30 @@ public class Matrix implements MyInterfaces {
                 }
             }
         }
+
+        return array;
+    }
+
+    @Override
+    public List<Integer> getSnake(int[][] matrixArray) {
+        System.out.println("\n" + "Snake Array:");
+        List<Integer> array = new ArrayList<>();
+
+        for (int i = 0; i < matrixArray.length; i++) {
+            int[] elements = matrixArray[i];
+
+            for (int j = 0; j <= i; j++) {
+                if (i % 2 == 0) {
+                    array.add(elements[j]);
+                    System.out.print(elements[j] + " ");
+                } else {
+                    array.add(elements[i - j]);
+                    System.out.print(elements[i - j] + " ");
+                }
+            }
+        }
+
+        System.out.println();
 
         return array;
     }

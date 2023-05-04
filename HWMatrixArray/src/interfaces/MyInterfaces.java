@@ -18,5 +18,8 @@ public interface MyInterfaces {
     int[] getSecondaryDiagonal(int[][] matrixArray);
 
     List<Integer> getSecondaryDiagonalAndBottom(int[][] matrixArray);
+
     List<Integer> getSecondaryDiagonalAndTop(int[][] matrixArray);
+
+    List<Integer> getSnake(int[][] matrixArray);
 }
