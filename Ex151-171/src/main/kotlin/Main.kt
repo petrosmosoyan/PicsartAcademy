@@ -15,6 +15,8 @@ fun main() {
     ex161()
     ex162()
     ex163()
+    ex164()
+    ex165()
 }
 
 fun ex151() {
@@ -159,9 +161,22 @@ fun ex163() {
 }
 
 fun ex164() {
-    val range = 1000 until 10000
-    val result = range.last { (sqrt(it * 18.0)) / (sqrt(it * 18.0)).toInt() == 1.0 }
+    val rangeEnd = sqrt(999.0).toInt()
+    val n = (10..rangeEnd).random()
+
+    val range = 100 until 1000
+    val result = range.first { sqrt(it.toDouble()) > n.toDouble() }
 
     println("Exercise 164\nresult = $result")
+    println()
+}
+
+fun ex165() {
+    val n = (3..9).random()
+
+    val range = 100 until 1000
+    val result = range.first { sqrt(it.toDouble()) > n.toDouble() }
+
+    println("Exercise 165\nresult = $result")
     println()
 }
