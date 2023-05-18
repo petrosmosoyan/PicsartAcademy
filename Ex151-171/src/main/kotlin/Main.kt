@@ -1,3 +1,4 @@
+import kotlin.math.sin
 import kotlin.math.sqrt
 
 fun main() {
@@ -17,6 +18,12 @@ fun main() {
     ex163()
     ex164()
     ex165()
+    ex166()
+    ex167()
+    ex168()
+    ex169()
+    ex170()
+    ex171()
 }
 
 fun ex151() {
@@ -172,11 +179,108 @@ fun ex164() {
 }
 
 fun ex165() {
-    val n = (3..9).random()
+    val n = (9..1000).random()
 
-    val range = 100 until 1000
-    val result = range.first { sqrt(it.toDouble()) > n.toDouble() }
+    var lastValue = n
 
-    println("Exercise 165\nresult = $result")
+    while (lastValue % 3 == 0) {
+        lastValue /= 3
+    }
+
+    val result = lastValue == 1
+
+    println("Exercise 165\nn = $n\nresult = $result")
     println()
+}
+
+fun ex166() {
+    val n = (16..1000).random()
+
+    var lastValue = n
+
+    while (lastValue % 4 == 0) {
+        lastValue /= 4
+    }
+
+    val result = if (lastValue == 1) 1 else 0
+
+    println("Exercise 166\nn = $n\nresult = $result")
+    println()
+}
+
+fun ex167() {
+    val range = 1..30
+
+//    for (i in range) {
+//        val sinVal = sin(i^)
+//    }
+
+//    val result = if (lastValue == 1) 1 else 0
+//
+//    println("Exercise 167\nn = $n\nresult = $result")
+//    println()
+}
+
+fun ex168() {
+    val n = (2..100).random()
+    val filter = (2..n / 2).filter { n % it == 0 }
+    val result = filter.isEmpty()
+
+    println("Exercise 168\nn = $n\nresult = $result")
+    println()
+}
+
+fun ex169() {
+    val x = (2..100).random()
+    val y = (2..100).random()
+
+    val filter = (2..(x + y / 2)).filter { (x + y) % it == 0 }
+    val result = if (filter.isEmpty()) 5 else 6
+
+    println("Exercise 169\nx = $x\ny = $y\nx + y = ${x + y}\nresult = $result")
+    println()
+}
+
+fun ex170() {
+    val n = (2..100).random()
+
+    var result = n + 1
+
+    while (ex170_1(result) != 1)
+        result++
+
+    println("Exercise 170\nn = $n\nresult = $result")
+    println()
+}
+
+fun ex170_1(x: Int): Int {
+
+    var div = x
+    while (div % 2 == 0) {
+        div /= 2
+    }
+
+    return div
+}
+
+fun ex171() {
+    val n = (2..10).random()
+
+    val range = 1..n
+
+    val result: Int = range.reduce { acc, i ->
+        acc * i
+    }
+
+    val result2: Long = ex171_1(n)
+
+    println("Exercise 171\nn = $n\nresult = $result\nresult2 = $result2")
+    println()
+}
+
+fun ex171_1(n: Int): Long {
+    return if (n == 1)
+        n.toLong()
+    else
+        n * ex171_1(n - 1)
 }
