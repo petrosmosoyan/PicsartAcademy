@@ -1,3 +1,5 @@
+import kotlin.math.pow
+import kotlin.math.sin
 import kotlin.math.sqrt
 
 fun main() {
@@ -208,16 +210,21 @@ fun ex166() {
 }
 
 fun ex167() {
+    val x = (-10..10).random()
     val range = 1..30
 
-//    for (i in range) {
-//        val sinVal = sin(i^)
-//    }
+    var result = false
+    for (i in range) {
+        val sinVal = sin(((x.toDouble()).pow(i)))
 
-//    val result = if (lastValue == 1) 1 else 0
-//
-//    println("Exercise 167\nn = $n\nresult = $result")
-//    println()
+        if (sinVal<0) {
+            result = true
+            break
+        }
+    }
+
+    println("Exercise 167\nx = $x\nresult = $result")
+    println()
 }
 
 fun ex168() {
@@ -253,7 +260,6 @@ fun ex170() {
 }
 
 fun ex170_1(x: Int): Int {
-
     var div = x
     while (div % 2 == 0) {
         div /= 2
@@ -272,11 +278,10 @@ fun ex171() {
     }
 
     val result2: Long = ex171_1(n)
-    val result3 = ex171_2(n)
+//    val result3 = ex171_2(n)
 
     println("Exercise 171\nn = $n\nresult = $result\nresult2 = $result2")
     println()
-    ex171_3(243L, 264L)
 }
 
 fun ex171_1(n: Int): Long {
@@ -284,64 +289,4 @@ fun ex171_1(n: Int): Long {
         n.toLong()
     else
         n * ex171_1(n - 1)
-}
-
-fun ex171_2(n: Int) {
-    val listOfResults = arrayListOf<Long>()
-    var start = 1
-    while (start != n) {
-        var result = 1L
-
-        for (i in start..n) {
-            start = i
-
-            if (result.toDouble() * i > Long.MAX_VALUE.toDouble()) {
-                listOfResults.add(result)
-                break
-            }
-
-            result *= i
-        }
-
-        if (start == n)
-            listOfResults.add(result)
-    }
-
-    val a = ""
-}
-
-fun ex171_3(num1: Long, num2: Long) {
-    val num1Str = num1.toString()
-    val num2Str = num2.toString()
-
-    val resultsArr = arrayListOf<String>()
-    for (i in num2Str.lastIndex downTo 0) {
-        val num2Ch = num2Str[i]
-
-        var reminder = 0
-
-        var resultStr = ""
-        for (j in num1Str.lastIndex downTo 0) {
-
-            val num1Ch = num1Str[j]
-            var multiple = num2Ch.toString().toInt() * num1Ch.toString().toInt()
-            multiple += reminder
-
-            reminder = multiple / 10
-            resultStr = (multiple % 10).toString() + resultStr
-
-            if (j == 0) {
-                if (reminder != 0)
-                    resultStr = reminder.toString() + resultStr
-
-                resultsArr.add(resultStr)
-            }
-        }
-    }
-
-    ex173_4(resultsArr)
-}
-
-fun ex173_4(resultsArr: ArrayList<String>) {
-    for ()
 }
