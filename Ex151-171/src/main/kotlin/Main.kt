@@ -1,4 +1,3 @@
-import kotlin.math.sin
 import kotlin.math.sqrt
 
 fun main() {
@@ -264,7 +263,7 @@ fun ex170_1(x: Int): Int {
 }
 
 fun ex171() {
-    val n = (2..10).random()
+    val n = (2..100).random()
 
     val range = 1..n
 
@@ -273,9 +272,11 @@ fun ex171() {
     }
 
     val result2: Long = ex171_1(n)
+    val result3 = ex171_2(n)
 
     println("Exercise 171\nn = $n\nresult = $result\nresult2 = $result2")
     println()
+    ex171_3(243L, 264L)
 }
 
 fun ex171_1(n: Int): Long {
@@ -283,4 +284,64 @@ fun ex171_1(n: Int): Long {
         n.toLong()
     else
         n * ex171_1(n - 1)
+}
+
+fun ex171_2(n: Int) {
+    val listOfResults = arrayListOf<Long>()
+    var start = 1
+    while (start != n) {
+        var result = 1L
+
+        for (i in start..n) {
+            start = i
+
+            if (result.toDouble() * i > Long.MAX_VALUE.toDouble()) {
+                listOfResults.add(result)
+                break
+            }
+
+            result *= i
+        }
+
+        if (start == n)
+            listOfResults.add(result)
+    }
+
+    val a = ""
+}
+
+fun ex171_3(num1: Long, num2: Long) {
+    val num1Str = num1.toString()
+    val num2Str = num2.toString()
+
+    val resultsArr = arrayListOf<String>()
+    for (i in num2Str.lastIndex downTo 0) {
+        val num2Ch = num2Str[i]
+
+        var reminder = 0
+
+        var resultStr = ""
+        for (j in num1Str.lastIndex downTo 0) {
+
+            val num1Ch = num1Str[j]
+            var multiple = num2Ch.toString().toInt() * num1Ch.toString().toInt()
+            multiple += reminder
+
+            reminder = multiple / 10
+            resultStr = (multiple % 10).toString() + resultStr
+
+            if (j == 0) {
+                if (reminder != 0)
+                    resultStr = reminder.toString() + resultStr
+
+                resultsArr.add(resultStr)
+            }
+        }
+    }
+
+    ex173_4(resultsArr)
+}
+
+fun ex173_4(resultsArr: ArrayList<String>) {
+    for ()
 }
