@@ -1,3 +1,5 @@
+import kotlin.math.roundToInt
+
 fun main() {
     ex173()
     ex174()
@@ -11,6 +13,7 @@ fun main() {
     ex182()
     ex183()
     ex184()
+    ex185()
     ex187()
     ex188()
     ex189()
@@ -251,6 +254,25 @@ fun ex184_1(mult: Int, k: Int, n: Int): Int {
 
     return k
 }
+
+/************************************ 185 ***********************************/
+fun ex185() {
+    val percent = (1 until 25).random()
+    val deposit = 30_000
+    var months = 0
+    var money: Double = deposit.toDouble()
+
+    while (money <= 100000) {
+        months++
+        money = ex185_1(money,percent)
+    }
+
+
+    println("Exercise 185\npercent = $percent\nmonths = $months\nmoney = ${money.roundToInt()}")
+    println()
+}
+
+fun ex185_1(money: Double, percent: Int) = money + (money * percent) / 100
 
 /************************************ 187 ***********************************/
 fun ex187() {
