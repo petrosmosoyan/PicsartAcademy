@@ -181,3 +181,19 @@ fun ex181_1(n: Int, k: Int): Int {
 
     return k
 }
+
+/************************************ 182 ***********************************/
+fun ex182() {
+    val n = listOf(2, 4, 16, 32, 64).random()
+    val k = ex181_1(n,0)
+
+    println("Exercise 182\nn = $n\nk = $k")
+    println()
+}
+
+fun ex181_1(n: Int, k: Int): Int {
+    if (n > 1)
+        return ex181_1(n / 2, k + 1)
+
+    return k
+}
