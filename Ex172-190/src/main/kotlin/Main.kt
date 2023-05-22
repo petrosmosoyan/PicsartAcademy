@@ -8,6 +8,12 @@ fun main() {
     ex179()
     ex180()
     ex181()
+    ex182()
+    ex183()
+    ex184()
+    ex187()
+    ex188()
+    ex189()
 }
 
 /************************************ 173 ***********************************/
@@ -169,7 +175,7 @@ fun ex180_1(n: Int): Boolean {
 /************************************ 181 ***********************************/
 fun ex181() {
     val n = listOf(2, 4, 16, 32, 64).random()
-    val k = ex181_1(n,0)
+    val k = ex181_1(n, 0)
 
     println("Exercise 181\nn = $n\nk = $k")
     println()
@@ -184,16 +190,118 @@ fun ex181_1(n: Int, k: Int): Int {
 
 /************************************ 182 ***********************************/
 fun ex182() {
-    val n = listOf(2, 4, 16, 32, 64).random()
-    val k = ex181_1(n,0)
+    val n = (1..100).random()
 
-    println("Exercise 182\nn = $n\nk = $k")
+    val range = (0..n)
+    val result = range.last { i ->
+        i * i <= n
+    }
+
+    println("Exercise 182\nn = $n\nresult = $result")
     println()
 }
 
-fun ex181_1(n: Int, k: Int): Int {
-    if (n > 1)
-        return ex181_1(n / 2, k + 1)
+/************************************ 183 ***********************************/
+fun ex183() {
+    val n = (1..100).random()
+
+    var k = 0
+    while (ex183_1(k) <= n) {
+        k++
+    }
+
+    println("Exercise 183\nn = $n\nk = $k")
+    println()
+}
+
+fun ex183_1(k: Int): Int {
+    var mult = 1
+
+    mult = if (k == 0)
+        3
+    else {
+        repeat(k) {
+            mult *= 3
+        }
+
+        mult
+    }
+
+    return mult
+}
+
+/************************************ 184 ***********************************/
+fun ex184() {
+    val n = (1..100).random()
+
+    if (n <= 3) {
+        println("Exercise 184\nn = $n\nk = No such value which will be satisfy the condition")
+        println()
+    } else {
+        val k = ex184_1(1, 0, n)
+
+        println("Exercise 184\nn = $n\nk = $k")
+        println()
+    }
+}
+
+fun ex184_1(mult: Int, k: Int, n: Int): Int {
+    if (mult * 3 < n)
+        return ex184_1(mult * 3, k + 1, n)
 
     return k
+}
+
+/************************************ 187 ***********************************/
+fun ex187() {
+    val n = (1..100).random()
+
+    val range = (2..n / 2)
+    val filterList = range.filter { n % it == 0 }
+    val result = filterList.isEmpty()
+
+    println("Exercise 187\nn = $n\nresult = $result")
+    println()
+}
+
+/************************************ 188 ***********************************/
+fun ex188() {
+    val n = (1..100).random()
+
+    val fibList = ex188_1(n, mutableListOf(0, 1))
+
+    val result = fibList.contains(n.toLong())
+
+    println("Exercise 188\nn = $n\nresult = $result")
+    println()
+}
+
+fun ex188_1(n: Int, fibList: MutableList<Long>): List<Long> {
+    if (fibList.last() < n) {
+        fibList += fibList[fibList.size - 2] + fibList[fibList.size - 1]
+        return ex188_1(n, fibList)
+    }
+
+    return fibList
+}
+
+/************************************ 189 ***********************************/
+fun ex189() {
+    val n = (1..100).random()
+
+    val fibList = ex189_1(n, mutableListOf(0, 1))
+
+    val result = fibList.last()
+
+    println("Exercise 189\nn = $n\nresult = $result\nfibList = $fibList")
+    println()
+}
+
+fun ex189_1(n: Int, fibList: MutableList<Long>): List<Long> {
+    if (fibList.last() <= n) {
+        fibList += fibList[fibList.size - 2] + fibList[fibList.size - 1]
+        return ex189_1(n, fibList)
+    }
+
+    return fibList
 }
