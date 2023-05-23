@@ -1,3 +1,4 @@
+import kotlin.math.abs
 import kotlin.math.roundToInt
 
 fun main() {
@@ -19,6 +20,7 @@ fun main() {
     ex187()
     ex188()
     ex189()
+    ex190()
 }
 
 /************************************ 173 ***********************************/
@@ -373,4 +375,20 @@ fun ex189_1(n: Int, fibList: MutableList<Long>): List<Long> {
     }
 
     return fibList
+}
+
+/************************************ 190 ***********************************/
+fun ex190() {
+    val e: Double = ((1..100).random()).toDouble() / 1000
+    var k = 3
+
+    val list = mutableListOf(2.0, 3.0)
+
+    while (abs(list.last() - list[list.lastIndex - 1]) > e) {
+        list += (list[list.lastIndex - 1] + 2 * list.last()) / 3
+        k++
+    }
+
+    println("Exercise 190\ne = $e\nk = $k\n|A(k) - A(k-1)| = ${abs(list.last() - list[list.lastIndex - 1])}")
+    println()
 }
