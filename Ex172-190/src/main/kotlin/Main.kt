@@ -1,6 +1,7 @@
 import kotlin.math.roundToInt
 
 fun main() {
+    ex172()
     ex173()
     ex174()
     ex175()
@@ -14,9 +15,32 @@ fun main() {
     ex183()
     ex184()
     ex185()
+    ex186()
     ex187()
     ex188()
     ex189()
+}
+
+/************************************ 173 ***********************************/
+fun ex172() {
+    val n = (1..10).random()
+
+    val range = if (n % 2 == 0) (2..n).filter { it % 2 == 0 } else (1..n).filter { it % 2 != 0 }
+    val doubleFactorialInt = range.reduce { acc, i ->
+        acc * i
+    }
+
+    val doubleFactorialLong = doubleFactorial(n.toLong())
+
+    println("Exercise 172\nn = $n\nDouble Factorial Integer = $doubleFactorialInt\nDouble Factorial Long = $doubleFactorialLong")
+    println()
+}
+
+fun doubleFactorial(n: Long): Long {
+    if ((n % 2 == 0L && n != 2L) || (n % 2 != 0L && n != 1L))
+        return n * doubleFactorial(n - 2)
+
+    return n
 }
 
 /************************************ 173 ***********************************/
@@ -264,7 +288,7 @@ fun ex185() {
 
     while (money <= 100000) {
         months++
-        money = ex185_1(money,percent)
+        money = ex185_1(money, percent)
     }
 
 
@@ -273,6 +297,29 @@ fun ex185() {
 }
 
 fun ex185_1(money: Double, percent: Int) = money + (money * percent) / 100
+
+/************************************ 186 ***********************************/
+fun ex186() {
+    val percent = 50
+
+    var days = 1
+    var dayDistance = 20.0
+    var totalDistance = dayDistance
+
+
+    while (dayDistance <= 80) {
+        days++
+
+        dayDistance = ex186_1(dayDistance, percent)
+        totalDistance += dayDistance
+    }
+
+
+    println("Exercise 186\npercent = $percent\ndays = $days\ntotalDistance = ${totalDistance.roundToInt()}")
+    println()
+}
+
+fun ex186_1(dayDistance: Double, percent: Int) = dayDistance + (dayDistance * percent) / 100
 
 /************************************ 187 ***********************************/
 fun ex187() {
