@@ -13,7 +13,7 @@ fun main(args: Array<String>) {
 
 fun ex201() {
     val n = (1..1000).random()
-    val length = n.toString().toList().size
+    val length = n.toString().length
 
     println("Exercise 201\nn = $n\nlength = $length")
     println()
