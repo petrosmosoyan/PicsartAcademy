@@ -1,3 +1,5 @@
+import java.math.BigInteger
+
 fun main(args: Array<String>) {
 
     val matrix = generateMatrix()
@@ -8,6 +10,11 @@ fun main(args: Array<String>) {
 
     ex497()
     ex498()
+    ex499()
+    ex500()
+    ex501()
+    ex502()
+    ex503()
 
     ex646()
     ex647()
@@ -265,13 +272,141 @@ fun ex498() {
         val minElement = innerMatrix.min()
         val minElementIndex = innerMatrix.indexOf(minElement)
 
-        innerMatrix.switchElements(i, minElementIndex)
+        innerMatrix.switchElements(matrix.size - 1 - i, minElementIndex)
     }
 
     println("Modified matrix:")
     println(matrix.joinToString("\n") {
         it.joinToString(" ")
     })
+    println()
+}
+
+fun ex499() {
+    val matrix = generateSquareMatrix()
+
+    println("Ex-499:\nRoot Matrix")
+    println(matrix.joinToString("\n") {
+        it.joinToString(" ")
+    })
+
+    var minElement = Int.MAX_VALUE
+    var maxElement = Int.MIN_VALUE
+
+    for (array in matrix) {
+        val min = array.min()
+        val max = array.max()
+
+        if (min < minElement)
+            minElement = min
+
+        if (max > maxElement)
+            maxElement = max
+    }
+
+    val average = (minElement.toDouble() + maxElement) / 2
+
+    val filterList = mutableListOf<Int>()
+    for (array in matrix) {
+        filterList += array.filter { it % 2 == 0 && it > average }
+    }
+
+    val result = filterList.sum()
+
+    println("result = $result")
+    println()
+}
+
+fun ex500() {
+    val matrix = generateSquareMatrix()
+
+    println("Ex-500:\nRoot Matrix")
+    println(matrix.joinToString("\n") {
+        it.joinToString(" ")
+    })
+
+    var sum = 0
+    for (array in matrix) {
+        sum += array.min() * array.max()
+    }
+
+    val result = sum / matrix.size
+
+    println("result = $result")
+    println()
+}
+
+fun ex501() {
+    val matrix = generateSquareMatrix()
+
+    println("Ex-501:\nRoot Matrix")
+    println(matrix.joinToString("\n") {
+        it.joinToString(" ")
+    })
+
+    val list = mutableListOf<BigInteger>()
+    for ((index, array) in matrix.withIndex()) {
+        val filterList = mutableMapOf<Int, Int>()
+
+        array.filterIndexed { i: Int, it: Int ->
+            if (it % 2 == 0 && it < array[index]) {
+                filterList[i] = it
+                true
+            } else
+                false
+        }
+
+        val newElement = if (filterList.isEmpty() || filterList.keys.sum() % 2 == 0)
+            1.toBigInteger()
+        else {
+            var multiply = 1.toBigInteger()
+            for (i in filterList.values) {
+                multiply *= i.toBigInteger()
+            }
+
+            multiply
+        }
+
+        list += newElement
+    }
+
+    println("Vector = $list")
+    println()
+}
+
+fun ex502() {
+    val matrix = generateSquareMatrix()
+
+    println("Ex-502:\nRoot Matrix")
+    println(matrix.joinToString("\n") {
+        it.joinToString(" ")
+    })
+
+    val list = mutableListOf<Int>()
+    for (array in matrix) {
+        val element = array.filter { it % 2 != 0 }.max()
+        list += element
+    }
+
+    println("Vector = $list")
+    println()
+}
+
+fun ex503() {
+    val matrix = generateSquareMatrix()
+
+    println("Ex-503:\nRoot Matrix")
+    println(matrix.joinToString("\n") {
+        it.joinToString(" ")
+    })
+
+    val list = mutableListOf<Int>()
+    for (array in matrix) {
+        val element = array.filter { it % 2 == 0 }.min()
+        list += element
+    }
+
+    println("Vector = $list")
     println()
 }
 
