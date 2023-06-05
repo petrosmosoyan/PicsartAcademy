@@ -6,6 +6,9 @@ fun main(args: Array<String>) {
     ex492(matrix.toMutableList())
     ex493(matrix.toMutableList())
 
+    ex497()
+    ex498()
+
     ex646()
     ex647()
     ex648()
@@ -45,6 +48,17 @@ fun generateMatrix(): List<List<Int>> {
         }
 
         matrix += rowList
+    }
+
+    return matrix
+}
+
+fun generateSquareMatrix(): Array<Array<Int>> {
+    val size = (3..10).random()
+    val matrix = Array(size) {
+        Array<Int>(size) {
+            (Math.random() * 10).toInt()
+        }
     }
 
     return matrix
@@ -91,6 +105,15 @@ fun <T> MutableList<List<T>>.switchLists(to: Int, from: Int) {
 }
 
 fun <T> MutableList<T>.switchElements(to: Int, from: Int): List<T> {
+    val fromElement = this[from]
+    val toElement = this[to]
+    this[to] = fromElement
+    this[from] = toElement
+
+    return this
+}
+
+fun Array<Int>.switchElements(to: Int, from: Int): Array<Int> {
     val fromElement = this[from]
     val toElement = this[to]
     this[to] = fromElement
@@ -206,6 +229,52 @@ fun ex493(matrix: MutableList<List<Int>>) {
     println()
 }
 
+fun ex497() {
+    val matrix = generateSquareMatrix()
+
+    println("Ex-497:\nRoot Matrix")
+    println(matrix.joinToString("\n") {
+        it.joinToString(" ")
+    })
+
+    for (i in matrix.indices) {
+        val innerMatrix = matrix[i]
+        val maxElement = innerMatrix.max()
+        val maxElementIndex = innerMatrix.indexOf(maxElement)
+
+        innerMatrix.switchElements(i, maxElementIndex)
+    }
+
+    println("Modified matrix:")
+    println(matrix.joinToString("\n") {
+        it.joinToString(" ")
+    })
+    println()
+}
+
+fun ex498() {
+    val matrix = generateSquareMatrix()
+
+    println("Ex-498:\nRoot Matrix")
+    println(matrix.joinToString("\n") {
+        it.joinToString(" ")
+    })
+
+    for (i in matrix.size - 1 downTo 0) {
+        val innerMatrix = matrix[i]
+        val minElement = innerMatrix.min()
+        val minElementIndex = innerMatrix.indexOf(minElement)
+
+        innerMatrix.switchElements(i, minElementIndex)
+    }
+
+    println("Modified matrix:")
+    println(matrix.joinToString("\n") {
+        it.joinToString(" ")
+    })
+    println()
+}
+
 fun ex646() {
     val n = (1..26).random()
     val string = generateRandomString(n)
@@ -316,7 +385,7 @@ fun ex657() {
 
         list += listOf(bigger)
 
-        startPoint = endPoint+1
+        startPoint = endPoint + 1
         endPoint += 2
     }
 
