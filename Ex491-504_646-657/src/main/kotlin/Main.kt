@@ -140,8 +140,7 @@ fun <T> MutableList<T>.moveToFirst(from: Int): List<T> {
     return this
 }
 
-fun String.addCharAtIndex(char: Char, index: Int) =
-    StringBuilder(this).apply { insert(index, char) }.toString()
+fun String.addCharAtIndex(char: Char, index: Int) = StringBuilder(this).apply { insert(index, char) }.toString()
 
 fun ex491(matrix: MutableList<List<Int>>) {
     var maxElement = 0
@@ -292,20 +291,26 @@ fun ex495() {
 fun ex496() {
     val size = (3..10).random()
     val matrix = Array(size) {
-        Array(2 * size) {
+        Array(size) {
             (Math.random() * 10).toInt()
         }
     }
 
-    println("Ex-495:\nRoot Matrix")
+    println("Ex-496:\nRoot Matrix")
     println(matrix.joinToString("\n") {
         it.joinToString(" ")
     })
 
-    matrix.sortByDescending {
+    val diagonalList = mutableListOf<Int>()
+    for ((index, array) in matrix.withIndex()) {
+        diagonalList += array[index]
+    }
 
-        it.indices
-        it.last()
+
+    diagonalList.sortBy { it }
+
+    for ((i, value) in diagonalList.withIndex()) {
+        matrix[i][i] = value
     }
 
     println("Modified matrix:")
@@ -346,12 +351,12 @@ fun ex498() {
         it.joinToString(" ")
     })
 
-    for (i in matrix.size - 1 downTo 0) {
+    for (i in matrix.lastIndex downTo 0) {
         val innerMatrix = matrix[i]
         val minElement = innerMatrix.min()
         val minElementIndex = innerMatrix.indexOf(minElement)
 
-        innerMatrix.switchElements(matrix.size - 1 - i, minElementIndex)
+        innerMatrix.switchElements(matrix.lastIndex - i, minElementIndex)
     }
 
     println("Modified matrix:")
@@ -376,11 +381,9 @@ fun ex499() {
         val min = array.min()
         val max = array.max()
 
-        if (min < minElement)
-            minElement = min
+        if (min < minElement) minElement = min
 
-        if (max > maxElement)
-            maxElement = max
+        if (max > maxElement) maxElement = max
     }
 
     val average = (minElement.toDouble() + maxElement) / 2
@@ -431,12 +434,10 @@ fun ex501() {
             if (it % 2 == 0 && it < array[index]) {
                 filterList[i] = it
                 true
-            } else
-                false
+            } else false
         }
 
-        val newElement = if (filterList.isEmpty() || filterList.keys.sum() % 2 == 0)
-            1.toBigInteger()
+        val newElement = if (filterList.isEmpty() || filterList.keys.sum() % 2 == 0) 1.toBigInteger()
         else {
             var multiply = 1.toBigInteger()
             for (i in filterList.values) {
@@ -510,13 +511,11 @@ fun ex504() {
             if (element % 2 != 0 && element > array[array.lastIndex - index]) {
                 filterList[i] = element
                 true
-            } else
-                false
+            } else false
 
         }
 
-        val newElement = if (filterList.isEmpty() || filterList.keys.sum() % 2 == 0)
-            0
+        val newElement = if (filterList.isEmpty() || filterList.keys.sum() % 2 == 0) 0
         else {
             filterList.values.sum()
         }
@@ -642,8 +641,7 @@ fun ex657() {
         endPoint += 2
     }
 
-    if (string.length % 2 != 0)
-        list += string.last()
+    if (string.length % 2 != 0) list += string.last()
 
     println("Ex-657\nstring1 = $string\nresult = $list")
     println()
