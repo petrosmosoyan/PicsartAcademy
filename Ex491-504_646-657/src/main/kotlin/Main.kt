@@ -306,7 +306,6 @@ fun ex496() {
         diagonalList += array[index]
     }
 
-
     diagonalList.sortBy { it }
 
     for ((i, value) in diagonalList.withIndex()) {
