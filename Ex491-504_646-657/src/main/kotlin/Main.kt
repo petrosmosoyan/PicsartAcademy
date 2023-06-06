@@ -15,6 +15,7 @@ fun main(args: Array<String>) {
     ex501()
     ex502()
     ex503()
+    ex504()
 
     ex646()
     ex647()
@@ -404,6 +405,41 @@ fun ex503() {
     for (array in matrix) {
         val element = array.filter { it % 2 == 0 }.min()
         list += element
+    }
+
+    println("Vector = $list")
+    println()
+}
+
+fun ex504() {
+    val matrix = generateSquareMatrix()
+
+    println("Ex-504:\nRoot Matrix")
+    println(matrix.joinToString("\n") {
+        it.joinToString(" ")
+    })
+
+    val list = mutableListOf<Int>()
+    for ((index, array) in matrix.withIndex()) {
+        val filterList = mutableMapOf<Int, Int>()
+
+        array.filterIndexed { i: Int, element ->
+
+            if (element % 2 != 0 && element > array[array.lastIndex - index]) {
+                filterList[i] = element
+                true
+            } else
+                false
+
+        }
+
+        val newElement = if (filterList.isEmpty() || filterList.keys.sum() % 2 == 0)
+            0
+        else {
+            filterList.values.sum()
+        }
+
+        list += newElement
     }
 
     println("Vector = $list")
