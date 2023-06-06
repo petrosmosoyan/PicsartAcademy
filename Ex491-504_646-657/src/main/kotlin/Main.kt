@@ -155,6 +155,10 @@ fun ex491(matrix: MutableList<List<Int>>) {
         }
     }
 
+    maxElement = matrix.maxOf { it.max() }
+    maxRow = matrix.indexOfFirst { it.contains(maxElement) }
+    maxCol = matrix[maxRow].indexOf(maxElement)
+
     println("Root Matrix, biggest element coordinates are ${"[$maxRow,$maxCol]"} ")
     printMatrix(matrix)
     println()
