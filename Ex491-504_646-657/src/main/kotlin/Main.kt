@@ -8,6 +8,10 @@ fun main(args: Array<String>) {
     ex492(matrix.toMutableList())
     ex493(matrix.toMutableList())
 
+    ex494()
+    ex495()
+    ex496()
+
     ex497()
     ex498()
     ex499()
@@ -237,6 +241,80 @@ fun ex493(matrix: MutableList<List<Int>>) {
     println()
 }
 
+fun ex494() {
+    val size = (3..10).random()
+    val matrix = Array(size) {
+        Array(2 * size) {
+            (Math.random() * 10).toInt()
+        }
+    }
+
+    println("Ex-494:\nRoot Matrix")
+    println(matrix.joinToString("\n") {
+        it.joinToString(" ")
+    })
+
+    matrix.sortBy {
+        it[0]
+    }
+
+    println("Modified matrix:")
+    println(matrix.joinToString("\n") {
+        it.joinToString(" ")
+    })
+    println()
+}
+
+fun ex495() {
+    val size = (3..10).random()
+    val matrix = Array(size) {
+        Array(2 * size) {
+            (Math.random() * 10).toInt()
+        }
+    }
+
+    println("Ex-495:\nRoot Matrix")
+    println(matrix.joinToString("\n") {
+        it.joinToString(" ")
+    })
+
+    matrix.sortByDescending {
+        it.last()
+    }
+
+    println("Modified matrix:")
+    println(matrix.joinToString("\n") {
+        it.joinToString(" ")
+    })
+    println()
+}
+
+fun ex496() {
+    val size = (3..10).random()
+    val matrix = Array(size) {
+        Array(2 * size) {
+            (Math.random() * 10).toInt()
+        }
+    }
+
+    println("Ex-495:\nRoot Matrix")
+    println(matrix.joinToString("\n") {
+        it.joinToString(" ")
+    })
+
+    matrix.sortByDescending {
+
+        it.indices
+        it.last()
+    }
+
+    println("Modified matrix:")
+    println(matrix.joinToString("\n") {
+        it.joinToString(" ")
+    })
+    println()
+}
+
 fun ex497() {
     val matrix = generateSquareMatrix()
 
@@ -385,8 +463,10 @@ fun ex502() {
 
     val list = mutableListOf<Int>()
     for (array in matrix) {
-        val element = array.filter { it % 2 != 0 }.max()
-        list += element
+        val element = array.filter { it % 2 != 0 }.maxOrNull()
+        element?.let {
+            list += it
+        }
     }
 
     println("Vector = $list")
@@ -403,8 +483,10 @@ fun ex503() {
 
     val list = mutableListOf<Int>()
     for (array in matrix) {
-        val element = array.filter { it % 2 == 0 }.min()
-        list += element
+        val element = array.filter { it % 2 == 0 }.minOrNull()
+        element?.let {
+            list += it
+        }
     }
 
     println("Vector = $list")
