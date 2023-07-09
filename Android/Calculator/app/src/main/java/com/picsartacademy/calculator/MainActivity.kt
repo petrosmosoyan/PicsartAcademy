@@ -14,7 +14,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, Actions {
 
     private var actionType: ActionType? = null
 
-    private var result = 0.0
     private var number = 0.0
 
     private var resetDisplay = false
@@ -135,11 +134,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, Actions {
             }
 
             R.id.btn_percent -> {
-
+                onPercent()
             }
 
             R.id.btn_switch -> {
-
+                onSwitch()
             }
 
             R.id.btn_c -> {
@@ -147,25 +146,64 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, Actions {
             }
 
             R.id.btn_dot -> {
-
+                concatNumbers(".")
             }
         }
     }
 
     override fun onPlus() {
+        resetDisplay = true
+        val secondNumber = display.text.toString().toDouble()
 
+        val result = number + secondNumber
+        number = secondNumber
+        showOnDisplay(result)
     }
 
     override fun onMinus() {
+        resetDisplay = true
+        val secondNumber = display.text.toString().toDouble()
 
+        val result = number - secondNumber
+        number = secondNumber
+        showOnDisplay(result)
     }
 
     override fun onDivide() {
+        resetDisplay = true
+        val secondNumber = display.text.toString().toDouble()
 
+        val result = number / secondNumber
+        number = secondNumber
+        showOnDisplay(result)
     }
 
     override fun onMultiply() {
+        resetDisplay = true
+        val secondNumber = display.text.toString().toDouble()
 
+        val result = number * secondNumber
+        number = secondNumber
+        showOnDisplay(result)
+    }
+
+    override fun onSwitch() {
+        val result = display.text.toString().toDouble() * (-1)
+        showOnDisplay(result)
+    }
+
+    override fun onPercent() {
+        resetDisplay = true
+        val secondNumber = display.text.toString().toDouble()
+
+        val result = number / 100
+        number = secondNumber
+        showOnDisplay(result)
+    }
+
+    override fun onClear() {
+        display.text = "0"
+        number = 0.0
     }
 
     override fun onEqual() {
@@ -175,22 +213,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, Actions {
         evaluate()
     }
 
-    override fun onClear() {
-        display.text = "0"
-        number = 0.0
-    }
-
     private fun concatNumbers(string: String) {
         if (resetDisplay) {
             resetDisplay = false
             display.text = ""
         }
 
-        result = (display.text.toString() + string).toDouble()
-        showOnDisplay()
+        val result = (display.text.toString() + string).toDouble()
+        showOnDisplay(result)
     }
 
-    private fun showOnDisplay() {
+    private fun showOnDisplay(result: Double) {
         display.text = if (result == 0.0 || result - result.toInt() == 0.0)
             result.toInt().toString()
         else
@@ -204,26 +237,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, Actions {
 
     private fun evaluate() {
         when (actionType) {
-            Plus -> {
-                resetDisplay = true
-                val secondNumber = display.text.toString().toDouble()
+            Plus -> onPlus()
 
-                result = number + secondNumber
-                number = secondNumber
-                showOnDisplay()
-            }
+            Minus -> onMinus()
 
-            Minus -> {
+            Divide -> onDivide()
 
-            }
-
-            Divide -> {
-
-            }
-
-            Multiply -> {
-
-            }
+            Multiply -> onMultiply()
 
             else -> {}
         }

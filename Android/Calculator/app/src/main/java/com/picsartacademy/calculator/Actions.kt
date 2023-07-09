@@ -8,4 +8,6 @@ interface Actions {
     fun onMultiply()
     fun onEqual()
     fun onClear()
+    fun onSwitch()
+    fun onPercent()
 }
