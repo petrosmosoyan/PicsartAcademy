@@ -4,5 +4,6 @@ enum class ActionType {
     Plus,
     Minus,
     Divide,
-    Multiply
+    Multiply,
+    Percent
 }
