@@ -11,11 +11,12 @@ import com.picsartacademy.calculator.ActionType.Minus
 import com.picsartacademy.calculator.ActionType.Multiply
 import com.picsartacademy.calculator.ActionType.Percent
 import com.picsartacademy.calculator.ActionType.Plus
+import com.picsartacademy.calculator.databinding.ActivityMainBinding
 import kotlin.properties.Delegates
 
 class MainActivity : AppCompatActivity(), View.OnClickListener, Actions {
 
-    private var display: TextView by Delegates.notNull()
+    private var viewBinding: ActivityMainBinding? = null
     private var resetDisplay = false
 
     companion object {
@@ -27,62 +28,43 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, Actions {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        display = findViewById(R.id.display)
+        val containerView = ActivityMainBinding.inflate(layoutInflater)
+            .also { viewBinding = it }
+            .root
+
+        setContentView(containerView)
 
         savedInstanceState?.takeIf {
             it.containsKey(displayKey)
         }?.let {
-            display.text = it.getString(displayKey)
+            viewBinding?.display?.text = it.getString(displayKey)
         }
 
-        val btn0: Button = findViewById(R.id.btn_0)
-        val btn1: Button = findViewById(R.id.btn_1)
-        val btn2: Button = findViewById(R.id.btn_2)
-        val btn3: Button = findViewById(R.id.btn_3)
-        val btn4: Button = findViewById(R.id.btn_4)
-        val btn5: Button = findViewById(R.id.btn_5)
-        val btn6: Button = findViewById(R.id.btn_6)
-        val btn7: Button = findViewById(R.id.btn_7)
-        val btn8: Button = findViewById(R.id.btn_8)
-        val btn9: Button = findViewById(R.id.btn_9)
-
-        val btnPlus: Button = findViewById(R.id.btn_plus)
-        val btnMinus: Button = findViewById(R.id.btn_minus)
-        val btnDivide: Button = findViewById(R.id.btn_divide)
-        val btnMultiply: Button = findViewById(R.id.btn_mult)
-
-        val btnEqual: Button = findViewById(R.id.btn_equal)
-        val btnPercent: Button = findViewById(R.id.btn_percent)
-        val btnSwitch: Button = findViewById(R.id.btn_switch)
-        val btnC: Button = findViewById(R.id.btn_c)
-        val btnDot: Button = findViewById(R.id.btn_dot)
-
-        btn0.setOnClickListener(this)
-        btn1.setOnClickListener(this)
-        btn2.setOnClickListener(this)
-        btn3.setOnClickListener(this)
-        btn4.setOnClickListener(this)
-        btn5.setOnClickListener(this)
-        btn6.setOnClickListener(this)
-        btn7.setOnClickListener(this)
-        btn8.setOnClickListener(this)
-        btn9.setOnClickListener(this)
-        btnPlus.setOnClickListener(this)
-        btnMinus.setOnClickListener(this)
-        btnDivide.setOnClickListener(this)
-        btnMultiply.setOnClickListener(this)
-        btnEqual.setOnClickListener(this)
-        btnPercent.setOnClickListener(this)
-        btnSwitch.setOnClickListener(this)
-        btnC.setOnClickListener(this)
-        btnDot.setOnClickListener(this)
+        viewBinding?.btn0?.setOnClickListener(this)
+        viewBinding?.btn1?.setOnClickListener(this)
+        viewBinding?.btn2?.setOnClickListener(this)
+        viewBinding?.btn3?.setOnClickListener(this)
+        viewBinding?.btn4?.setOnClickListener(this)
+        viewBinding?.btn5?.setOnClickListener(this)
+        viewBinding?.btn6?.setOnClickListener(this)
+        viewBinding?.btn7?.setOnClickListener(this)
+        viewBinding?.btn8?.setOnClickListener(this)
+        viewBinding?.btn9?.setOnClickListener(this)
+        viewBinding?.btnPlus?.setOnClickListener(this)
+        viewBinding?.btnMinus?.setOnClickListener(this)
+        viewBinding?.btnDivide?.setOnClickListener(this)
+        viewBinding?.btnMult?.setOnClickListener(this)
+        viewBinding?.btnEqual?.setOnClickListener(this)
+        viewBinding?.btnPercent?.setOnClickListener(this)
+        viewBinding?.btnSwitch?.setOnClickListener(this)
+        viewBinding?.btnC?.setOnClickListener(this)
+        viewBinding?.btnDot?.setOnClickListener(this)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putString(displayKey, display.text.toString())
+        outState.putString(displayKey, viewBinding?.display?.text.toString())
     }
 
     override fun onClick(v: View?) {
@@ -203,19 +185,19 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, Actions {
     }
 
     override fun onSwitch() {
-        val result = display.text.toString().replace(" ", "").toDouble() * (-1)
+        val result = viewBinding?.display?.text.toString().replace(" ", "").toDouble() * (-1)
         showOnDisplay(result)
     }
 
     override fun onPercent() {
-        number = display.text.toString().replace(" ", "").toDouble()
+        number = viewBinding?.display?.text.toString().replace(" ", "").toDouble()
 
         number /= 100
         showOnDisplay(number)
     }
 
     override fun onClear() {
-        display.text = "0"
+        viewBinding?.display?.text = "0"
         number = 0.0
         tmpNumber = null
         actionType = null
@@ -231,10 +213,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, Actions {
     private fun concatNumbers(string: String) {
         if (resetDisplay) {
             resetDisplay = false
-            display.text = ""
+            viewBinding?.display?.text = ""
         }
 
-        val result = (display.text.toString().replace(" ", "") + string).toDouble()
+        val result = (viewBinding?.display?.text.toString().replace(" ", "") + string).toDouble()
         showOnDisplay(result)
     }
 
@@ -299,11 +281,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, Actions {
             }
         }
 
-        display.text = tmpText
+        viewBinding?.display?.text = tmpText
     }
 
     private fun onAction() {
-        number = display.text.toString().replace(" ", "").toDouble()
+        number = viewBinding?.display?.text.toString().replace(" ", "").toDouble()
         resetDisplay = true
         tmpNumber = null
     }
@@ -312,7 +294,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, Actions {
         resetDisplay = true
 
         if (tmpNumber == null)
-            tmpNumber = display.text.toString().replace(" ", "").toDouble()
+            tmpNumber = viewBinding?.display?.text.toString().replace(" ", "").toDouble()
 
         when (actionType) {
             Plus -> onPlus()
@@ -322,5 +304,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, Actions {
             Percent -> onPercent()
             else -> {}
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        viewBinding = null
     }
 }
